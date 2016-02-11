@@ -1,5 +1,5 @@
 # eggshell
-CPSC 224 / Murphy-Beach, Old, Kelly, (kevin's last name) / Group Project
+CPSC 224 / Murphy-Beach, Old, Kelly, Tran / Group Project
 
 
 An app to facilitate anonymous conversations between rival sports fanbases.
