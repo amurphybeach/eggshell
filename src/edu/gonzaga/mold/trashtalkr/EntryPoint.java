@@ -35,7 +35,7 @@ public class EntryPoint {
 				System.out.println("failed to connect (client already running on this ip/port?");
 			}
 		} else {
-			System.err.println("Call with no arguments unless your name is Mark Old");
+			System.err.println("Call with IP unless your name is Mark Old");
 		}
 		System.out.println("Shutting down...");
 	}
