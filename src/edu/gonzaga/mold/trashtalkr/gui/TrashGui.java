@@ -26,6 +26,13 @@ public class TrashGui extends JFrame {
 	public TrashGui(String ip) throws IOException {
 		this.ipMaster = ip;
 		you = new User(ipMaster);
+		
+		if(you.connect()){
+			System.out.println("We good fam");
+		}
+		else{
+			System.out.println("Failure to connect");
+		}
 
 		setTitle("TrashTalkr");
 		setBounds(100, 100, 450, 300);
