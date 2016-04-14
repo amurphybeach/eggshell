@@ -35,8 +35,7 @@ public class EntryPoint {
 				System.out.println("failed to connect (client already running on this ip/port?");
 			}
 		} else {
-			System.err.println("Must be called with:" + "\n\tNATChat bootstrap <ip>\t\t(supernode)\n\t"
-			        + "NATChat <bootstrap ip>\t\t(normal node).\n");
+			System.err.println("Call with no arguments unless your name is Mark Old");
 		}
 		System.out.println("Shutting down...");
 	}
