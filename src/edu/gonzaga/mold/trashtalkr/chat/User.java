@@ -13,9 +13,9 @@ public class User {
 	private ClientNode client;
 	private boolean bootstrapped = false;
 	
-	public User() throws IOException {
+	public User(String ip) throws IOException {
 		userId = Constants.generatePeerId();
-		client = new ClientNode(userId);
+		client = new ClientNode(ip, userId);
 	}
 	
 	public boolean connect() {

@@ -11,11 +11,11 @@ import edu.gonzaga.mold.trashtalkr.dht.MasterNode;
 
 public class EntryPoint {
 	public static void main(String[] args) throws Exception {
-		if (args.length > 0 && args[0].equals("bootstrap")) {
-			MasterNode b = new MasterNode();
+		if (args.length == 2 && args[0].equals("bootstrap")) {
+			MasterNode b = new MasterNode(args[1]);
 			b.examine(1000);
-		} else if (args.length == 0) {
-			User you = new User();
+		} else if (args.length == 1) {
+			User you = new User(args[0]);
 			if (you.connect()) {
 				String inLine = null;
 				while ((inLine = getLine()) != null) {

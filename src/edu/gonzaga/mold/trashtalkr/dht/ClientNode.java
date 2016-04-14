@@ -23,19 +23,21 @@ import net.tomp2p.storage.Data;
 
 public class ClientNode {	
 	private PeerDHT peer;
+	private String ip;
 	
-	public ClientNode(Number160 peerId, boolean behindFirewall) throws IOException  {
+	public ClientNode(String ip, Number160 peerId, boolean behindFirewall) throws IOException  {
+		this.ip = ip;
 		Peer pb = new PeerBuilder(peerId).ports(Constants.CLIENT_PORT).behindFirewall(true).start();
 		this.peer = new PeerBuilderDHT(pb).start();
 		peer.peer().peerAddress().inetAddress();
 	}
 	
-	public ClientNode(Number160 peerId) throws IOException {
-		this(peerId, true);
+	public ClientNode(String ip, Number160 peerId) throws IOException {
+		this(ip, peerId, true);
 	}
 	
 	public boolean bootstrap() throws UnknownHostException {
-		PeerAddress bootStrapServer = new PeerAddress(Number160.ZERO, InetAddress.getByName(Constants.BOOTSTRAPPER_IP), Constants.BOOTSTRAPPER_PORT, Constants.BOOTSTRAPPER_PORT);
+		PeerAddress bootStrapServer = new PeerAddress(Number160.ZERO, InetAddress.getByName(ip), Constants.BOOTSTRAPPER_PORT, Constants.BOOTSTRAPPER_PORT);
 		FutureDiscover fd = peer.peer().discover().peerAddress(bootStrapServer).start();
 		fd.awaitUninterruptibly();
 		if (!fd.isSuccess()) {

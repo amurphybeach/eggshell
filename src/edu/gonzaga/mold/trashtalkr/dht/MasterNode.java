@@ -17,16 +17,18 @@ public class MasterNode {
 	public static String eventName = "global";
 	
 	private PeerDHT peer;
+	private String ip;
 	
-	public MasterNode(boolean behindFirewall) throws IOException {
+	public MasterNode(String ip, boolean behindFirewall) throws IOException {
+		this.ip = ip;
 		Bindings b = new Bindings();
-		b.addAddress(InetAddress.getByName(Constants.BOOTSTRAPPER_IP));
+		b.addAddress(InetAddress.getByName(ip));
 		Peer pb = new PeerBuilder(Number160.createHash(id)).bindings(b).ports(Constants.BOOTSTRAPPER_PORT).behindFirewall(behindFirewall).start();
 		this.peer = new PeerBuilderDHT(pb).start();
 	}
 	
-	public MasterNode() throws IOException {
-		this(false);
+	public MasterNode(String ip) throws IOException {
+		this(ip, false);
 	}
 	
 	public void examine(int ms) {
