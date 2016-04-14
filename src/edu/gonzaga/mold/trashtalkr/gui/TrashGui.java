@@ -77,6 +77,7 @@ public class TrashGui extends JFrame {
 					}
 				}
 				System.out.println();
+				textPane.setText("");
 				// you.disconnect();
 			}
 		});
