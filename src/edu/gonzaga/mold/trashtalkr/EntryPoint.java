@@ -2,9 +2,8 @@ package edu.gonzaga.mold.trashtalkr;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-
 import edu.gonzaga.mold.trashtalkr.dht.MasterNode;
-import edu.gonzaga.mold.trashtalkr.gui.Gui;
+import edu.gonzaga.mold.trashtalkr.gui.TrashGui;
 
 public class EntryPoint {
 	public static void main(String[] args) throws Exception {
@@ -13,12 +12,12 @@ public class EntryPoint {
 			b.examine(1000);
 		} 
 		else{
-			Gui windowGui = new Gui();
-			windowGui.setVisible(true);
-			while(windowGui.isVisible()){
-				//
+			TrashGui gui = new TrashGui(args[0]);
+			gui.setVisible(true);
+			while(gui.isVisible()){
+				Thread.sleep(0);
 			}
-			
+				
 		}
 	}
 	
