@@ -3,7 +3,6 @@ package edu.gonzaga.mold.trashtalkr.util;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-import edu.gonzaga.mold.trashtalkr.chat.ChatMessage;
 import net.tomp2p.peers.Number160;
 
 public class Constants {

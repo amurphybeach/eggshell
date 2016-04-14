@@ -2,7 +2,6 @@ package edu.gonzaga.mold.trashtalkr.dht;
 
 import java.io.IOException;
 import java.net.InetAddress;
-import java.util.Iterator;
 
 import edu.gonzaga.mold.trashtalkr.util.Constants;
 import net.tomp2p.connection.Bindings;
@@ -12,7 +11,6 @@ import net.tomp2p.dht.PeerDHT;
 import net.tomp2p.p2p.Peer;
 import net.tomp2p.p2p.PeerBuilder;
 import net.tomp2p.peers.Number160;
-import net.tomp2p.storage.Data;
 
 public class MasterNode {
 	public static int id = 1;

@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
@@ -67,7 +66,6 @@ public class ClientNode {
 				System.err.println("Could not find key for val: " + d.object());
 			}
 		}
-		Collections.sort(messages);
 		return messages;
 	}
 	
