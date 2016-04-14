@@ -1,6 +1,8 @@
-# eggshell
-CPSC 224 / Murphy-Beach, Old, Kelly, Tran / Group Project
+# Codename Eggshell
 
+## Right now this app does basically nothing
+
+CPSC 224 / Murphy-Beach, Old, Kelly, Tran / Group Project
 
 An app to facilitate anonymous conversations between rival sports fanbases.
 
