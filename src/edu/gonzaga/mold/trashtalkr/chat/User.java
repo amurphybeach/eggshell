@@ -8,6 +8,7 @@ import java.util.List;
 
 import edu.gonzaga.mold.trashtalkr.dht.ClientBroadcastListener;
 import edu.gonzaga.mold.trashtalkr.dht.ClientNode;
+import edu.gonzaga.mold.trashtalkr.dht.GetMessagesCallback;
 import edu.gonzaga.mold.trashtalkr.util.Constants;
 import net.tomp2p.peers.Number160;
 
@@ -34,13 +35,23 @@ public class User {
 	}
 
 	private void triggerMessageListeners() {
-		try {
-			for (MessageListener listener : listeners) {
-				listener.onMessage(checkMessages());
+		client.getMessagesAsync(new GetMessagesCallback() {
+			@Override
+			public void call(List<ChatMessage> messages) {
+				try {
+					for (MessageListener listener : listeners) {
+						listener.onMessage(messages);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+
+			@Override
+			public void err(Throwable t) {
+				t.printStackTrace();
+			}
+		});
 	}
 
 	public boolean connect() {

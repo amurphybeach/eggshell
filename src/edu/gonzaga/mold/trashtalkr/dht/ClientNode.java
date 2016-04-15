@@ -16,8 +16,11 @@ import edu.gonzaga.mold.trashtalkr.util.Constants;
 import net.tomp2p.dht.FutureGet;
 import net.tomp2p.dht.PeerBuilderDHT;
 import net.tomp2p.dht.PeerDHT;
+import net.tomp2p.futures.BaseFutureListener;
 import net.tomp2p.futures.FutureBootstrap;
 import net.tomp2p.futures.FutureDiscover;
+import net.tomp2p.futures.FutureDone;
+import net.tomp2p.futures.Futures;
 import net.tomp2p.p2p.Peer;
 import net.tomp2p.p2p.PeerBuilder;
 import net.tomp2p.peers.Number160;
@@ -68,22 +71,62 @@ public class ClientNode {
 	}
 
 	public List<ChatMessage> getMessages() throws ClassNotFoundException, IOException {
-		FutureGet fget = peer.get(Number160.createHash(MasterNode.eventName)).all().start();
-		fget.awaitUninterruptibly();
-		Iterator<Data> iterator = fget.dataMap().values().iterator();
-		FutureGet fg;
-		ArrayList<ChatMessage> messages = new ArrayList<ChatMessage>();
+		FutureGet eventFutureGet = peer.get(Number160.createHash(MasterNode.eventName)).all().start();
+		eventFutureGet.awaitUninterruptibly();
+		Iterator<Data> iterator = eventFutureGet.dataMap().values().iterator();
+		FutureGet messageFutureGet;
+		List<ChatMessage> messages = new ArrayList<ChatMessage>();
 		while (iterator.hasNext()) {
 			Data d = iterator.next();
-			fg = peer.get(new Number160(((Integer) d.object()).intValue())).start();
-			fg.awaitUninterruptibly();
-			if (fg.data() != null) {
-				messages.add((ChatMessage) fg.data().object());
+			messageFutureGet = peer.get(new Number160(((Integer) d.object()).intValue())).start();
+			messageFutureGet.awaitUninterruptibly();
+			if (messageFutureGet.data() != null) {
+				messages.add((ChatMessage) messageFutureGet.data().object());
 			} else {
 				logger.error("Could not find key for val: " + d.object());
 			}
 		}
 		return messages;
+	}
+
+	public void getMessagesAsync(GetMessagesCallback callback) {
+		FutureGet eventFutureGet = peer.get(Number160.createHash(MasterNode.eventName)).all().start();
+		eventFutureGet.addListener(new BaseFutureListener<FutureGet>() {
+			@Override
+			public void operationComplete(FutureGet eventFutureGet) throws Exception {
+				Iterator<Data> iterator = eventFutureGet.dataMap().values().iterator();
+				List<FutureGet> messageFutureGets = new ArrayList<FutureGet>();
+				while (iterator.hasNext()) {
+					Data d = iterator.next();
+					FutureGet messageFutureGet = peer.get(new Number160(((Integer) d.object()).intValue())).start();
+					messageFutureGets.add(messageFutureGet);
+				}
+				Futures.whenAll(messageFutureGets).addListener(new BaseFutureListener<FutureDone<List<FutureGet>>>() {
+					@Override
+					public void operationComplete(FutureDone<List<FutureGet>> futureDone) throws Exception {
+						List<ChatMessage> messages = new ArrayList<ChatMessage>();
+						for (FutureGet messageFutureGet : futureDone.object()) {
+							if (messageFutureGet.data() != null) {
+								messages.add((ChatMessage) messageFutureGet.data().object());
+							} else {
+								logger.error("Could not find key for val during async message get");
+							}
+						}
+						callback.call(messages);
+					}
+
+					@Override
+					public void exceptionCaught(Throwable t) throws Exception {
+						callback.err(t);
+					}	
+				});
+			}
+
+			@Override
+			public void exceptionCaught(Throwable t) throws Exception {
+				callback.err(t);
+			}
+		});
 	}
 
 	public void postMessage(ChatMessage message) throws IOException {
