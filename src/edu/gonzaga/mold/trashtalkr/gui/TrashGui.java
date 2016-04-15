@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
-
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JButton;
@@ -24,7 +23,6 @@ import javax.swing.JTextPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
-
 import edu.gonzaga.mold.trashtalkr.chat.ChatMessage;
 import edu.gonzaga.mold.trashtalkr.chat.User;
 
@@ -99,9 +97,10 @@ public class TrashGui extends JFrame {
 							e1.printStackTrace();
 						}
 					}
+				} else {
+					System.out.println();
+					chatBox.append("You are not connected but good try \n");
 				}
-				System.out.println();
-				chatBox.append("You are not connected but good try \n");
 				textPane.setText("");
 			}
 		});
@@ -143,9 +142,10 @@ public class TrashGui extends JFrame {
 							e1.printStackTrace();
 						}
 					}
+				} else {
+					System.out.println();
+					chatBox.append("You are not connected but good try \n");
 				}
-				System.out.println();
-				chatBox.append("You are not connected but good try \n");
 				textPane.setText("");
 			}
 		};
