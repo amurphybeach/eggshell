@@ -15,35 +15,22 @@ import net.tomp2p.peers.Number160;
 public class MasterNode {
 	public static int id = 1;
 	public static String eventName = "global";
-	
+
 	private PeerDHT peer;
-	private String ip;
-	
+
 	public MasterNode(String ip, boolean behindFirewall) throws IOException {
-		this.ip = ip;
 		Bindings b = new Bindings();
 		b.addAddress(InetAddress.getByName(ip));
-		Peer pb = new PeerBuilder(Number160.createHash(id)).bindings(b).ports(Constants.BOOTSTRAPPER_PORT).behindFirewall(behindFirewall).start();
+		Peer pb = new PeerBuilder(Number160.createHash(id)).bindings(b).ports(Constants.BOOTSTRAPPER_PORT)
+				.behindFirewall(behindFirewall).start();
 		this.peer = new PeerBuilderDHT(pb).start();
 	}
-	
+
 	public MasterNode(String ip) throws IOException {
 		this(ip, false);
 	}
 	
-	public void examine(int ms) {
-		try {
-			while (true) {
-				Thread.sleep(ms);
-				FutureGet fg = peer.get(Number160.createHash(eventName)).all().start();
-				fg.awaitUninterruptibly();
-				int size = fg.dataMap().size();
-				System.out.println("size " + size);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			peer.shutdown();
-		}
+	public void halt() {
+		peer.shutdown();
 	}
 }

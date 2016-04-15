@@ -49,6 +49,14 @@
     <groupId>net.tomp2p</groupId>
     <artifactId>tomp2p-all</artifactId>
   </dependency>
+  <dependency>
+  	<groupId>junit</groupId>
+  	<artifactId>junit</artifactId>
+  </dependency>
+  <dependency>
+  	<groupId>org.slf4j</groupId>
+  	<artifactId>slf4j-simple</artifactId>
+  </dependency>
 </dependencies>
 	<groupId>edu.gonzaga.mold</groupId>
 	<dependencyManagement>
@@ -57,6 +65,16 @@
 				<groupId>net.tomp2p</groupId>
 				<artifactId>tomp2p-all</artifactId>
 				<version>5.0-Beta8</version>
+			</dependency>
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.12</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-simple</artifactId>
+				<version>1.7.21</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

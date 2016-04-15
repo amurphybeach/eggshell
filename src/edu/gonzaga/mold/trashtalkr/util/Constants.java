@@ -8,7 +8,7 @@ import net.tomp2p.peers.Number160;
 public class Constants {
 	public static final int BOOTSTRAPPER_PORT = 4000;
 	public static final int CLIENT_PORT = 4563;
-	
+
 	public static Number160 generatePeerId() {
 		try {
 			return Number160.createHash(InetAddress.getLocalHost().getHostAddress());

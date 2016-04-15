@@ -23,6 +23,11 @@ public class ChatMessage implements Comparable<ChatMessage>, Serializable {
 	public Number160 getUserId() {
 		return userId;
 	}
+	
+	@Override
+	public String toString() {
+		return getMessage();	
+	}
 
 	@Override
 	public int compareTo(ChatMessage other) {
