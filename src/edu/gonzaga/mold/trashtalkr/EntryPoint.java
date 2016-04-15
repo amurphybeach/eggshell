@@ -3,9 +3,7 @@ package edu.gonzaga.mold.trashtalkr;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
 import javax.swing.SwingUtilities;
-
 import edu.gonzaga.mold.trashtalkr.dht.MasterNode;
 import edu.gonzaga.mold.trashtalkr.gui.TrashGui;
 
