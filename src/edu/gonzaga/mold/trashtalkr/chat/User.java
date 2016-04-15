@@ -38,6 +38,7 @@ public class User {
 		client.getMessagesAsync(new GetMessagesCallback() {
 			@Override
 			public void call(List<ChatMessage> messages) {
+				Collections.sort(messages);
 				try {
 					for (MessageListener listener : listeners) {
 						listener.onMessage(messages);
