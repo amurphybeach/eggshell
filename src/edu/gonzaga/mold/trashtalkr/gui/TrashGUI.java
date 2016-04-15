@@ -108,7 +108,11 @@ public class TrashGUI extends JFrame {
 	}
 
 	private void addListeners() {
-		postButton.addActionListener(new ActionListener() {
+		// Should work
+		Action sendMessageAction = new AbstractAction() {
+			private static final long serialVersionUID = 3265672839752886129L;
+
+			@Override
 			public void actionPerformed(ActionEvent ae) {
 				if (you.connect()) {
 					String inLine = inputBox.getText();
@@ -122,7 +126,9 @@ public class TrashGUI extends JFrame {
 				}
 				inputBox.setText("");
 			}
-		});
+		};
+		inputBox.addActionListener(sendMessageAction);
+		postButton.addActionListener(sendMessageAction);
 
 		this.addWindowListener(new java.awt.event.WindowAdapter() {
 			@Override
@@ -141,27 +147,6 @@ public class TrashGUI extends JFrame {
 				updateChatBox(messages);
 			}
 		});
-
-		// Should work
-		Action keyEnter = new AbstractAction() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (you.connect()) {
-					String inLine = inputBox.getText();
-					if (inLine != "") {
-						try {
-							you.postMessage(inLine);
-						} catch (IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-					}
-				}
-				inputBox.setText("");
-			}
-		};
-		inputBox.addActionListener(keyEnter);
-
 	}
 
 	private void updateChatBox(List<ChatMessage> messages) {
