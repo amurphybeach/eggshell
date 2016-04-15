@@ -17,6 +17,15 @@ public class MasterNode {
 
 	private PeerDHT peer;
 
+	/**
+	 * Create a new MasterNode (there should only be one of these on a network)
+	 * 
+	 * @param ip
+	 *            the IP address to bind to
+	 * @param behindFirewall
+	 *            whether the node is behind a firewall
+	 * @throws IOException
+	 */
 	public MasterNode(String ip, boolean behindFirewall) throws IOException {
 		Bindings b = new Bindings();
 		b.addAddress(InetAddress.getByName(ip));
@@ -25,16 +34,19 @@ public class MasterNode {
 		this.peer = new PeerBuilderDHT(pb).start();
 	}
 
+	/**
+	 * Secondary constructor
+	 * 
+	 * @param ip
+	 *            the IP address to bind to
+	 * @throws IOException
+	 */
 	public MasterNode(String ip) throws IOException {
 		this(ip, true);
 	}
 
 	/**
-	 * <h1>Halt</h1>
-	 * <p>
-	 * SHUTDOWN GOLD
-	 * </p>
-	 * 
+	 * Shuts down a master node, preventing new connections
 	 */
 	public void halt() {
 		peer.shutdown();

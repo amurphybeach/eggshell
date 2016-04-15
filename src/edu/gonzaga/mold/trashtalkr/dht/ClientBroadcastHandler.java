@@ -7,23 +7,30 @@ import net.tomp2p.message.Message;
 import net.tomp2p.p2p.Peer;
 import net.tomp2p.p2p.StructuredBroadcastHandler;
 
+/**
+ * Helper class to trigger message events
+ */
 public class ClientBroadcastHandler extends StructuredBroadcastHandler {
 	Logger logger = LoggerFactory.getLogger(ClientBroadcastHandler.class);
 
 	private ClientNode client;
 
+	/**
+	 * Create a new broadcast handler (protected)
+	 * 
+	 * @param client
+	 *            reference to the creating ClientNode
+	 */
 	protected ClientBroadcastHandler(ClientNode client) {
 		this.client = client;
 	}
 
 	/**
-	 * <h1>Broadcast Handler</h1>
-	 * <p>
-	 * Logs message and sets off trigger
-	 * </p>
+	 * Handles incoming broadcasts
 	 * 
 	 * @param message
-	 * @return sbh
+	 *            an incoming broadcast message
+	 * @return this
 	 */
 	@Override
 	public StructuredBroadcastHandler receive(Message message) {
@@ -34,13 +41,10 @@ public class ClientBroadcastHandler extends StructuredBroadcastHandler {
 	}
 
 	/**
-	 * <h1>Broadcast Handler init</h1>
-	 * <p>
-	 * Inits the sbh with the parent class peer
-	 * </p>
+	 * Initializes the broadcast handler
 	 * 
 	 * @param peer
-	 * @return sbh
+	 *            reference to the initializing peer
 	 */
 	@Override
 	public StructuredBroadcastHandler init(Peer peer) {

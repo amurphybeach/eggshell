@@ -4,12 +4,23 @@ import java.io.Serializable;
 
 import net.tomp2p.peers.Number160;
 
+/**
+ * Class representing a chat message
+ */
 public class ChatMessage implements Comparable<ChatMessage>, Serializable {
 	private static final long serialVersionUID = 5448162664352364561L;
 	private long msPostedAt;
 	private String message;
 	private Number160 userId;
 
+	/**
+	 * Protected constructor, only called by User class
+	 * 
+	 * @param message
+	 *            text of the message
+	 * @param userId
+	 *            the ID of the posting user
+	 */
 	protected ChatMessage(String message, Number160 userId) {
 		this.message = message;
 		this.userId = userId;
@@ -17,30 +28,27 @@ public class ChatMessage implements Comparable<ChatMessage>, Serializable {
 	}
 
 	/**
-	 * <h1>Get Message</h1>
-	 * <p>
-	 * @return  message
-	 * </p>
+	 * Get message
+	 * 
+	 * @return message
 	 */
 	public String getMessage() {
 		return message;
 	}
 
 	/**
-	 * <h1>Get UserId</h1>
-	 * <p>
-	 *@return  user id
-	 * </p>
+	 * Get userId
+	 * 
+	 * @return user id
 	 */
 	public Number160 getUserId() {
 		return userId;
 	}
 
 	/**
-	 * <h1>ToString/h1>
-	 * <p>
-	 *@return Returns message
-	 * </p>
+	 * Converts a ChatMessage object to a textual representation
+	 * 
+	 * @return textual representation
 	 */
 	@Override
 	public String toString() {
@@ -48,10 +56,11 @@ public class ChatMessage implements Comparable<ChatMessage>, Serializable {
 	}
 
 	/**
-	 * <h1>Compare Message</h1>
-	 * <p>
-	 * @return Returns int
-	 * </p>
+	 * Compares one ChatMessage object with another
+	 * 
+	 * @param other
+	 *            the other ChatMessage object
+	 * @return comparison result
 	 */
 	@Override
 	public int compareTo(ChatMessage other) {

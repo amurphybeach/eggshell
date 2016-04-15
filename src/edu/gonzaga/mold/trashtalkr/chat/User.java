@@ -12,12 +12,22 @@ import edu.gonzaga.mold.trashtalkr.dht.GetMessagesCallback;
 import edu.gonzaga.mold.trashtalkr.util.Util;
 import net.tomp2p.peers.Number160;
 
+/**
+ * Class representing a user
+ */
 public class User {
 	private Number160 userId;
 	private ClientNode client;
 	private boolean bootstrapped = false;
 	private List<MessageListener> listeners;
 
+	/**
+	 * Creates a new User
+	 * 
+	 * @param ip
+	 *            the IP of the master node
+	 * @throws IOException
+	 */
 	public User(String ip) throws IOException {
 		userId = Util.generatePeerId();
 		client = new ClientNode(ip, userId);
@@ -31,24 +41,17 @@ public class User {
 	}
 
 	/**
-	 * <h1>Add Message Listener</h1>
-	 * <p>
-	 * Adds a listener to list
-	 * </p>
+	 * Add a listener for incoming messages
 	 * 
 	 * @param listener
+	 *            the listener
 	 */
 	public void addMessageListener(MessageListener listener) {
 		listeners.add(listener);
 	}
 
 	/**
-	 * <h1>Trigger Listner</h1>
-	 * <p>
-	 * Sets off listener messages
-	 * </p>
-	 * 
-	 * @param
+	 * Trigger all the listeners for incoming messages
 	 */
 	private void triggerMessageListeners() {
 		client.getMessagesAsync(new GetMessagesCallback() {
@@ -72,12 +75,9 @@ public class User {
 	}
 
 	/**
-	 * <h1>Connect</h1>
-	 * <p>
-	 * Connects to the client bootstrap
-	 * </p>
+	 * Connect the user to the p2p network
 	 * 
-	 * @return true if successful - false otherwise
+	 * @return true if successful
 	 */
 	public boolean connect() {
 		if (!bootstrapped) {
@@ -95,23 +95,18 @@ public class User {
 	}
 
 	/**
-	 * <h1>Disconnect</h1>
-	 * <p>
-	 * Client disconnects you
-	 * </p>
-	 * 
+	 * Disconnects the user from the p2p network
 	 */
 	public void disconnect() {
 		client.halt();
 	}
 
 	/**
-	 * <h1>Post Message</h1>
-	 * <p>
-	 * Adds a message to Chatmassage client
-	 * </p>
+	 * Posts a message to the current chat room
 	 * 
 	 * @param message
+	 *            the message to post
+	 * @throws IOException
 	 */
 	public void postMessage(String message) throws IOException {
 		ChatMessage m = new ChatMessage(message, this.userId);
@@ -119,12 +114,11 @@ public class User {
 	}
 
 	/**
-	 * <h1>Check Message</h1>
-	 * <p>
-	 * Checks the client messages and puts them in List
-	 * </p>
+	 * Get all the messages in the current chat room
 	 * 
-	 * @return List Messages
+	 * @return the messages
+	 * @throws ClassNotFoundException
+	 * @throws IOException
 	 */
 	public List<ChatMessage> checkMessages() throws ClassNotFoundException, IOException {
 		List<ChatMessage> messages = client.getMessages();

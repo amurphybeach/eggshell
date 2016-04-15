@@ -35,6 +35,16 @@ public class TrashGUI extends JFrame {
 	private String ipMaster;
 	private User you;
 
+	/**
+	 * Creates a new GUI
+	 * 
+	 * @param ip
+	 *            the IP of the master node
+	 * @param masterNode
+	 *            the master node, if bootstrapping the network
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	public TrashGUI(String ip, MasterNode masterNode) throws IOException, ClassNotFoundException {
 		this.ipMaster = ip;
 		this.masterNode = masterNode;
@@ -43,10 +53,21 @@ public class TrashGUI extends JFrame {
 		addListeners();
 	}
 
+	/**
+	 * Creates a new GUI (no bootstrapping)
+	 * 
+	 * @param ip
+	 *            the IP of the master node
+	 * @throws ClassNotFoundException
+	 * @throws IOException
+	 */
 	public TrashGUI(String ip) throws ClassNotFoundException, IOException {
 		this(ip, null);
 	}
 
+	/**
+	 * Initializes the GUI
+	 */
 	public void init() {
 		try {
 			if (you.connect()) {
@@ -62,11 +83,7 @@ public class TrashGUI extends JFrame {
 	}
 
 	/**
-	 * <h1>Build UI</h1>
-	 * <p>
-	 * Literally builds the UI
-	 * </p>
-	 * 
+	 * Create the UI
 	 */
 	private void buildUI() {
 		setTitle("TrashTalkr");
@@ -115,11 +132,7 @@ public class TrashGUI extends JFrame {
 	}
 
 	/**
-	 * <h1>Add Listeners</h1>
-	 * <p>
-	 * Adds and implements all listeners for the UI
-	 * </p>
-	 * 
+	 * Adds listeners to all inputs and outputs
 	 */
 	private void addListeners() {
 		// Should work
@@ -164,12 +177,10 @@ public class TrashGUI extends JFrame {
 	}
 
 	/**
-	 * <h1>Update Chatbox</h1>
-	 * <p>
-	 * Goes and puts messages and appends the string to the box
-	 * </p>
+	 * Helper method to update the chatbox with new messages
 	 * 
 	 * @param messages
+	 *            the messages to put in the chatbox
 	 */
 	private void updateChatBox(List<ChatMessage> messages) {
 		chatBox.setText("");

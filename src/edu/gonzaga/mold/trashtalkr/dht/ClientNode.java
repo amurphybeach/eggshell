@@ -27,13 +27,27 @@ import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.PeerAddress;
 import net.tomp2p.storage.Data;
 
+/**
+ * Class representing a node in the p2p network
+ */
 public class ClientNode {
 	private PeerDHT peer;
 	private String ip;
 	private List<ClientBroadcastListener> listeners;
 
-	Logger logger = LoggerFactory.getLogger(ClientNode.class);
+	private Logger logger = LoggerFactory.getLogger(ClientNode.class);
 
+	/**
+	 * Creates a new ClientNode
+	 * 
+	 * @param ip
+	 *            the IP of the master node
+	 * @param peerId
+	 *            unique peer id for this user
+	 * @param behindFirewall
+	 *            whether the node is behind a firewall
+	 * @throws IOException
+	 */
 	public ClientNode(String ip, Number160 peerId, boolean behindFirewall) throws IOException {
 		this.ip = ip;
 		Peer pb = new PeerBuilder(peerId).ports(Constants.CLIENT_PORT).behindFirewall(behindFirewall)
@@ -42,17 +56,24 @@ public class ClientNode {
 		listeners = new ArrayList<ClientBroadcastListener>();
 	}
 
+	/**
+	 * Secondary constructor
+	 * 
+	 * @param ip
+	 *            the IP of the master node
+	 * @param peerId
+	 *            unique peer id for this user
+	 * @throws IOException
+	 */
 	public ClientNode(String ip, Number160 peerId) throws IOException {
 		this(ip, peerId, true);
 	}
 
 	/**
-	 * <h1>Bootstrap</h1>
-	 * <p>
-	 * Starts the peer to connect
-	 * </p>
+	 * Bootstraps a peer to the network
 	 * 
-	 * @return true if success -false other wise
+	 * @return true on success
+	 * @throws UnknownHostException
 	 */
 	public boolean bootstrap() throws UnknownHostException {
 		PeerAddress bootstrapServer = new PeerAddress(Number160.ZERO, InetAddress.getByName(ip),
@@ -74,11 +95,7 @@ public class ClientNode {
 	}
 
 	/**
-	 * <h1>Halt</h1>
-	 * <p>
-	 * Stops peer connect
-	 * </p>
-	 * 
+	 * Shuts down a peer, disconnecting it from the network
 	 */
 	public void halt() {
 		peer.peer().announceShutdown().start().awaitUninterruptibly();
@@ -86,12 +103,11 @@ public class ClientNode {
 	}
 
 	/**
-	 * <h1>Get Messages</h1>
-	 * <p>
-	 * Gets the list and iterates through gets message data and adds it
-	 * </p>
+	 * Gets all the ChatMessage objects for the current event
 	 * 
-	 * @return List of <ChatMessages>
+	 * @return the messages
+	 * @throws ClassNotFoundException
+	 * @throws IOException
 	 */
 	public List<ChatMessage> getMessages() throws ClassNotFoundException, IOException {
 		FutureGet eventFutureGet = peer.get(Number160.createHash(MasterNode.eventName)).all().start();
@@ -113,12 +129,10 @@ public class ClientNode {
 	}
 
 	/**
-	 * <h1>Get Message Async</h1>
-	 * <p>
-	 * Gets the callback async, iterators through list something something yeah
-	 * </p>
+	 * Gets all the ChatMessage objects for the current event asynchronously
 	 * 
 	 * @param callback
+	 *            the callback object
 	 */
 	public void getMessagesAsync(GetMessagesCallback callback) {
 		FutureGet eventFutureGet = peer.get(Number160.createHash(MasterNode.eventName)).all().start();
@@ -161,12 +175,11 @@ public class ClientNode {
 	}
 
 	/**
-	 * <h1>Post Message</h1>
-	 * <p>
-	 * Adds client message
-	 * </p>
+	 * Post a message to the DHT
 	 * 
 	 * @param message
+	 *            the message
+	 * @throws IOException
 	 */
 	public void postMessage(ChatMessage message) throws IOException {
 		int r = new Random().nextInt();
@@ -176,27 +189,21 @@ public class ClientNode {
 	}
 
 	/**
-	 * <h1>Trigger Listener</h1>
-	 * <p>
-	 * Goes through triggers
-	 * </p>
+	 * Add a listener for incoming broadcasts
 	 * 
+	 * @param listener
+	 *            the listener
+	 */
+	public void addBroadcastListener(ClientBroadcastListener listener) {
+		listeners.add(listener);
+	}
+
+	/**
+	 * Trigger all the listeners for incoming broadcasts
 	 */
 	protected void triggerListeners() {
 		for (ClientBroadcastListener listener : listeners) {
 			listener.onBroadcast();
 		}
-	}
-
-	/**
-	 * <h1>Add Broadcast Listener</h1>
-	 * <p>
-	 * Adds listener to listeners
-	 * </p>
-	 * 
-	 * @param listener
-	 */
-	public void addBroadcastListener(ClientBroadcastListener listener) {
-		listeners.add(listener);
 	}
 }

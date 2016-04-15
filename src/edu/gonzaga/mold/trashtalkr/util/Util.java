@@ -6,6 +6,11 @@ import java.net.UnknownHostException;
 import net.tomp2p.peers.Number160;
 
 public class Util {
+	/**
+	 * Generate a unique peer ID for the user, based on IP address
+	 * 
+	 * @return the peer ID
+	 */
 	public static Number160 generatePeerId() {
 		try {
 			return Number160.createHash(getLocalAddress());
@@ -16,12 +21,10 @@ public class Util {
 	}
 
 	/**
-	 * <h1>Get Local Address</h1>
-	 * <p>
-	 * Gets the address of the user
-	 * </p>
+	 * Gets the user's IP address
 	 * 
-	 * @return hostAdress
+	 * @return the user's IP address
+	 * @throws UnknownHostException
 	 */
 	public static String getLocalAddress() throws UnknownHostException {
 		return InetAddress.getLocalHost().getHostAddress();

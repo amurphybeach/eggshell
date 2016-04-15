@@ -14,6 +14,13 @@ public class EntryPoint {
 	private static MasterNode master;
 	private static Logger logger = LoggerFactory.getLogger(EntryPoint.class);
 
+	/**
+	 * Main entry point of program
+	 * 
+	 * @param args
+	 *            program arguments
+	 * @throws Exception
+	 */
 	public static void main(String[] args) throws Exception {
 		if (args.length == 1 && args[0].equals("headless")) {
 			master = new MasterNode(Util.getLocalAddress());
