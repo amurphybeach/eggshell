@@ -1,6 +1,7 @@
 package edu.gonzaga.mold.trashtalkr;
 
 import javax.swing.SwingUtilities;
+
 import edu.gonzaga.mold.trashtalkr.dht.MasterNode;
 import edu.gonzaga.mold.trashtalkr.gui.TrashGUI;
 

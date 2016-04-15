@@ -16,8 +16,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.DefaultCaret;
 
 import edu.gonzaga.mold.trashtalkr.chat.ChatMessage;
 import edu.gonzaga.mold.trashtalkr.chat.MessageListener;
@@ -85,6 +85,8 @@ public class TrashGUI extends JFrame {
 		// contentPane.add(scrollPane);
 
 		chatBox = new JTextArea();
+		DefaultCaret caret = (DefaultCaret) chatBox.getCaret();
+		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 		scrollPane.setViewportView(chatBox);
 		chatBox.setEditable(false);
 		chatBox.setLineWrap(true);

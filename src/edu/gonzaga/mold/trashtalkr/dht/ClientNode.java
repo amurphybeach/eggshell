@@ -118,7 +118,7 @@ public class ClientNode {
 					@Override
 					public void exceptionCaught(Throwable t) throws Exception {
 						callback.err(t);
-					}	
+					}
 				});
 			}
 
