@@ -29,6 +29,13 @@ public class MasterNode {
 		this(ip, true);
 	}
 
+	/**
+	 * <h1>Halt</h1>
+	 * <p>
+	 * SHUTDOWN GOLD
+	 * </p>
+	 * 
+	 */
 	public void halt() {
 		peer.shutdown();
 	}

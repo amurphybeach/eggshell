@@ -15,6 +15,14 @@ public class Util {
 		return Number160.ZERO;
 	}
 
+	/**
+	 * <h1>Get Local Address</h1>
+	 * <p>
+	 * Gets the address of the user
+	 * </p>
+	 * 
+	 * @return hostAdress
+	 */
 	public static String getLocalAddress() throws UnknownHostException {
 		return InetAddress.getLocalHost().getHostAddress();
 	}

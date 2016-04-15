@@ -16,6 +16,15 @@ public class ClientBroadcastHandler extends StructuredBroadcastHandler {
 		this.client = client;
 	}
 
+	/**
+	 * <h1>Broadcast Handler</h1>
+	 * <p>
+	 * Logs message and sets off trigger
+	 * </p>
+	 * 
+	 * @param message
+	 * @return sbh
+	 */
 	@Override
 	public StructuredBroadcastHandler receive(Message message) {
 		logger.info("Got a broadcast message");
@@ -24,6 +33,15 @@ public class ClientBroadcastHandler extends StructuredBroadcastHandler {
 		return sbh;
 	}
 
+	/**
+	 * <h1>Broadcast Handler init</h1>
+	 * <p>
+	 * Inits the sbh with the parent class peer
+	 * </p>
+	 * 
+	 * @param peer
+	 * @return sbh
+	 */
 	@Override
 	public StructuredBroadcastHandler init(Peer peer) {
 		return super.init(peer);

@@ -46,6 +46,14 @@ public class ClientNode {
 		this(ip, peerId, true);
 	}
 
+	/**
+	 * <h1>Bootstrap</h1>
+	 * <p>
+	 * Starts the peer to connect
+	 * </p>
+	 * 
+	 * @return true if success -false other wise
+	 */
 	public boolean bootstrap() throws UnknownHostException {
 		PeerAddress bootstrapServer = new PeerAddress(Number160.ZERO, InetAddress.getByName(ip),
 				Constants.BOOTSTRAPPER_PORT, Constants.BOOTSTRAPPER_PORT);
@@ -65,11 +73,26 @@ public class ClientNode {
 		return true;
 	}
 
+	/**
+	 * <h1>Halt</h1>
+	 * <p>
+	 * Stops peer connect
+	 * </p>
+	 * 
+	 */
 	public void halt() {
 		peer.peer().announceShutdown().start().awaitUninterruptibly();
 		peer.peer().shutdown().awaitUninterruptibly();
 	}
 
+	/**
+	 * <h1>Get Messages</h1>
+	 * <p>
+	 * Gets the list and iterates through gets message data and adds it
+	 * </p>
+	 * 
+	 * @return List of <ChatMessages>
+	 */
 	public List<ChatMessage> getMessages() throws ClassNotFoundException, IOException {
 		FutureGet eventFutureGet = peer.get(Number160.createHash(MasterNode.eventName)).all().start();
 		eventFutureGet.awaitUninterruptibly();
@@ -89,6 +112,14 @@ public class ClientNode {
 		return messages;
 	}
 
+	/**
+	 * <h1>Get Message Async</h1>
+	 * <p>
+	 * Gets the callback async, iterators through list something something yeah
+	 * </p>
+	 * 
+	 * @param callback
+	 */
 	public void getMessagesAsync(GetMessagesCallback callback) {
 		FutureGet eventFutureGet = peer.get(Number160.createHash(MasterNode.eventName)).all().start();
 		eventFutureGet.addListener(new BaseFutureListener<FutureGet>() {
@@ -129,6 +160,14 @@ public class ClientNode {
 		});
 	}
 
+	/**
+	 * <h1>Post Message</h1>
+	 * <p>
+	 * Adds client message
+	 * </p>
+	 * 
+	 * @param message
+	 */
 	public void postMessage(ChatMessage message) throws IOException {
 		int r = new Random().nextInt();
 		peer.add(Number160.createHash(MasterNode.eventName)).data(new Data(r)).start().awaitUninterruptibly();
@@ -136,12 +175,27 @@ public class ClientNode {
 		peer.peer().broadcast(new Number160(r)).start();
 	}
 
+	/**
+	 * <h1>Trigger Listener</h1>
+	 * <p>
+	 * Goes through triggers
+	 * </p>
+	 * 
+	 */
 	protected void triggerListeners() {
 		for (ClientBroadcastListener listener : listeners) {
 			listener.onBroadcast();
 		}
 	}
 
+	/**
+	 * <h1>Add Broadcast Listener</h1>
+	 * <p>
+	 * Adds listener to listeners
+	 * </p>
+	 * 
+	 * @param listener
+	 */
 	public void addBroadcastListener(ClientBroadcastListener listener) {
 		listeners.add(listener);
 	}

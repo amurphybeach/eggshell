@@ -30,10 +30,26 @@ public class User {
 		});
 	}
 
+	/**
+	 * <h1>Add Message Listener</h1>
+	 * <p>
+	 * Adds a listener to list
+	 * </p>
+	 * 
+	 * @param listener
+	 */
 	public void addMessageListener(MessageListener listener) {
 		listeners.add(listener);
 	}
 
+	/**
+	 * <h1>Trigger Listner</h1>
+	 * <p>
+	 * Sets off listener messages
+	 * </p>
+	 * 
+	 * @param
+	 */
 	private void triggerMessageListeners() {
 		client.getMessagesAsync(new GetMessagesCallback() {
 			@Override
@@ -55,6 +71,14 @@ public class User {
 		});
 	}
 
+	/**
+	 * <h1>Connect</h1>
+	 * <p>
+	 * Connects to the client bootstrap
+	 * </p>
+	 * 
+	 * @return true if successful - false otherwise
+	 */
 	public boolean connect() {
 		if (!bootstrapped) {
 			boolean success = false;
@@ -70,15 +94,38 @@ public class User {
 		}
 	}
 
+	/**
+	 * <h1>Disconnect</h1>
+	 * <p>
+	 * Client disconnects you
+	 * </p>
+	 * 
+	 */
 	public void disconnect() {
 		client.halt();
 	}
 
+	/**
+	 * <h1>Post Message</h1>
+	 * <p>
+	 * Adds a message to Chatmassage client
+	 * </p>
+	 * 
+	 * @param message
+	 */
 	public void postMessage(String message) throws IOException {
 		ChatMessage m = new ChatMessage(message, this.userId);
 		client.postMessage(m);
 	}
 
+	/**
+	 * <h1>Check Message</h1>
+	 * <p>
+	 * Checks the client messages and puts them in List
+	 * </p>
+	 * 
+	 * @return List Messages
+	 */
 	public List<ChatMessage> checkMessages() throws ClassNotFoundException, IOException {
 		List<ChatMessage> messages = client.getMessages();
 		Collections.sort(messages);

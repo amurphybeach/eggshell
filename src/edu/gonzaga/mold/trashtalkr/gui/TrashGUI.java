@@ -61,6 +61,13 @@ public class TrashGUI extends JFrame {
 		}
 	}
 
+	/**
+	 * <h1>Build UI</h1>
+	 * <p>
+	 * Literally builds the UI
+	 * </p>
+	 * 
+	 */
 	private void buildUI() {
 		setTitle("TrashTalkr");
 		setBounds(100, 100, 450, 300);
@@ -107,6 +114,13 @@ public class TrashGUI extends JFrame {
 		contentPane.add(postButton);
 	}
 
+	/**
+	 * <h1>Add Listeners</h1>
+	 * <p>
+	 * Adds and implements all listeners for the UI
+	 * </p>
+	 * 
+	 */
 	private void addListeners() {
 		// Should work
 		Action sendMessageAction = new AbstractAction() {
@@ -149,6 +163,14 @@ public class TrashGUI extends JFrame {
 		});
 	}
 
+	/**
+	 * <h1>Update Chatbox</h1>
+	 * <p>
+	 * Goes and puts messages and appends the string to the box
+	 * </p>
+	 * 
+	 * @param messages
+	 */
 	private void updateChatBox(List<ChatMessage> messages) {
 		chatBox.setText("");
 		for (ChatMessage message : messages) {
