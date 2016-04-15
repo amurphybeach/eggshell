@@ -1,5 +1,7 @@
 package edu.gonzaga.mold.trashtalkr.gui;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -7,6 +9,7 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -65,25 +68,40 @@ public class TrashGUI extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
+		contentPane.setBackground(new Color(139, 0, 0));
 		contentPane.setLayout(null);
 
+		JLabel welcomeLbl = new JLabel("Welcome to TrashTalkr - It's TRASH");
+		welcomeLbl.setForeground(Color.WHITE);
+		welcomeLbl.setBackground(Color.WHITE);
+		welcomeLbl.setFont(new Font("Comic Sans MS", Font.PLAIN, 13));
+		welcomeLbl.setBounds(100, 6, 233, 16);
+		contentPane.add(welcomeLbl);
+
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(6, 22, 438, 207);
+		contentPane.add(scrollPane);
+		// scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		// contentPane.add(scrollPane);
+
 		chatBox = new JTextArea();
-		chatBox.setBounds(10, 11, 414, 182);
+		scrollPane.setViewportView(chatBox);
 		chatBox.setEditable(false);
 		chatBox.setLineWrap(true);
 
-		JScrollPane scrollPane = new JScrollPane(chatBox);
-		scrollPane.setBounds(10, 13, 412, 185);
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		contentPane.add(scrollPane);
+		// inputBox = new JTextField();
+		// inputBox.setBounds(20, 204, 193, 31);
+		// contentPane.add(inputBox);
 
 		inputBox = new JTextField();
-		inputBox.setBounds(20, 204, 193, 31);
+		inputBox.setBounds(6, 233, 247, 26);
+		inputBox.setBackground(Color.WHITE);
 		contentPane.add(inputBox);
+		inputBox.setColumns(10);
 
 		postButton = new JButton("TrashTalk");
-
-		postButton.setBounds(228, 212, 121, 23);
+		postButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 13));
+		postButton.setBounds(265, 233, 117, 29);
 		contentPane.add(postButton);
 	}
 
