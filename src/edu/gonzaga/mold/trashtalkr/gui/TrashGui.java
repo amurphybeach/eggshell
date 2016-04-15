@@ -10,7 +10,10 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextPane;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 
 import edu.gonzaga.mold.trashtalkr.chat.ChatMessage;
@@ -19,6 +22,7 @@ import edu.gonzaga.mold.trashtalkr.chat.User;
 public class TrashGui extends JFrame {
 
 	private Vector<String> messageList = new Vector<String>();
+	private List<ChatMessage> messages = null;
 	private JPanel contentPane;
 	private static String ipMaster;
 	private User you;
@@ -26,11 +30,10 @@ public class TrashGui extends JFrame {
 	public TrashGui(String ip) throws IOException {
 		this.ipMaster = ip;
 		you = new User(ipMaster);
-		
-		if(you.connect()){
+
+		if (you.connect()) {
 			System.out.println("We good fam");
-		}
-		else{
+		} else {
 			System.out.println("Failure to connect");
 		}
 
@@ -42,9 +45,21 @@ public class TrashGui extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JList list = new JList();
-		list.setBounds(10, 11, 414, 182);
-		contentPane.add(list);
+		JTextArea chatBox = new JTextArea();
+		chatBox.setBounds(10, 11, 414, 182);
+		chatBox.setEditable(false);
+		chatBox.setLineWrap(true);
+
+		JScrollPane scrollPane = new JScrollPane(chatBox);
+		scrollPane.setBounds(10, 13, 412, 185);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		contentPane.add(scrollPane);
+
+		// contentPane.add(newJScrollPane(chatBox));
+		/*
+		 * JList list = new JList(); list.setBounds(10, 11, 414, 182);
+		 * contentPane.add(list);
+		 */
 
 		JTextPane textPane = new JTextPane();
 		textPane.setBounds(20, 204, 193, 31);
@@ -56,7 +71,6 @@ public class TrashGui extends JFrame {
 				if (you.connect()) {
 					String inLine = textPane.getText();
 					if (inLine != "") {
-						List<ChatMessage> messages = null;
 						try {
 							messages = you.checkMessages();
 						} catch (ClassNotFoundException | IOException e1) {
@@ -64,9 +78,11 @@ public class TrashGui extends JFrame {
 							e1.printStackTrace();
 						}
 						Collections.sort(messages);
+						int i = 0;
 						for (ChatMessage m : messages) {
 							System.out.println(m.getUserId().toString() + ": " + m.getMessage());
-							list.setListData(messageList);
+							// list.setListData(messageList);
+							chatBox.setText(messageList.elementAt(i++));
 						}
 						try {
 							you.postMessage(inLine);
@@ -83,15 +99,6 @@ public class TrashGui extends JFrame {
 		});
 		btnNewButton.setBounds(228, 212, 121, 23);
 		contentPane.add(btnNewButton);
-
-		JButton btnNewButton_1 = new JButton("X");
-		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				you.disconnect();
-			}
-		});
-		btnNewButton_1.setBounds(359, 212, 50, 23);
-		contentPane.add(btnNewButton_1);
 
 		addWindowListener(new java.awt.event.WindowAdapter() {
 			@Override
