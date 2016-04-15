@@ -14,6 +14,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 
 import edu.gonzaga.mold.trashtalkr.chat.ChatMessage;
@@ -22,12 +23,14 @@ import edu.gonzaga.mold.trashtalkr.chat.User;
 public class TrashGui extends JFrame {
 
 	private Vector<String> messageList = new Vector<String>();
-	private List<ChatMessage> messages = null;
+	private List<ChatMessage> messages;
 	private JPanel contentPane;
 	private static String ipMaster;
 	private User you;
+	private int delay = 250; // every .25 seconds
+	private Timer timer;
 
-	public TrashGui(String ip) throws IOException {
+	public TrashGui(String ip) throws IOException, ClassNotFoundException {
 		this.ipMaster = ip;
 		you = new User(ipMaster);
 
@@ -36,6 +39,8 @@ public class TrashGui extends JFrame {
 		} else {
 			System.out.println("Failure to connect");
 		}
+
+		messages = you.checkMessages();
 
 		setTitle("TrashTalkr");
 		setBounds(100, 100, 450, 300);
@@ -72,19 +77,6 @@ public class TrashGui extends JFrame {
 					String inLine = textPane.getText();
 					if (inLine != "") {
 						try {
-							messages = you.checkMessages();
-						} catch (ClassNotFoundException | IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-						Collections.sort(messages);
-						int i = 0;
-						for (ChatMessage m : messages) {
-							System.out.println(m.getUserId().toString() + ": " + m.getMessage());
-							// list.setListData(messageList);
-							chatBox.setText(messageList.elementAt(i++));
-						}
-						try {
 							you.postMessage(inLine);
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block
@@ -94,11 +86,30 @@ public class TrashGui extends JFrame {
 				}
 				System.out.println();
 				textPane.setText("");
-				// you.disconnect();
 			}
 		});
 		btnNewButton.setBounds(228, 212, 121, 23);
 		contentPane.add(btnNewButton);
+
+		ActionListener action = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent event) {
+				try {
+					messages = you.checkMessages();
+				} catch (ClassNotFoundException | IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				for (ChatMessage m : messages) {
+					System.out.println(m.getUserId().toString() + ": " + m.getMessage());
+					chatBox.append(m.getUserId().toString() + ": " + m.getMessage() + "\n");
+				}
+			}
+		};
+
+		timer = new Timer(delay, action);
+		timer.setInitialDelay(0);
+		timer.start();
 
 		addWindowListener(new java.awt.event.WindowAdapter() {
 			@Override
