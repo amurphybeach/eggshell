@@ -3,7 +3,6 @@ package edu.gonzaga.mold.trashtalkr.gui;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.List;
 
@@ -115,10 +114,10 @@ public class TrashGUI extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				if (you.connect()) {
-					String inLine = inputBox.getText();
-					if (!inLine.equals("")) {
+					String input = inputBox.getText();
+					if (!input.equals("")) {
 						try {
-							you.postMessage(inLine);
+							you.postMessage(input);
 						} catch (Exception e) {
 							e.printStackTrace();
 						}

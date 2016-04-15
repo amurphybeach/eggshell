@@ -9,7 +9,7 @@ import java.util.List;
 import edu.gonzaga.mold.trashtalkr.dht.ClientBroadcastListener;
 import edu.gonzaga.mold.trashtalkr.dht.ClientNode;
 import edu.gonzaga.mold.trashtalkr.dht.GetMessagesCallback;
-import edu.gonzaga.mold.trashtalkr.util.Constants;
+import edu.gonzaga.mold.trashtalkr.util.Util;
 import net.tomp2p.peers.Number160;
 
 public class User {
@@ -19,7 +19,7 @@ public class User {
 	private List<MessageListener> listeners;
 
 	public User(String ip) throws IOException {
-		userId = Constants.generatePeerId();
+		userId = Util.generatePeerId();
 		client = new ClientNode(ip, userId);
 		listeners = new ArrayList<MessageListener>();
 		client.addBroadcastListener(new ClientBroadcastListener() {
