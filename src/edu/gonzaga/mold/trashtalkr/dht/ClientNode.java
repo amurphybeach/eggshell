@@ -33,7 +33,7 @@ public class ClientNode {
 
 	public ClientNode(String ip, Number160 peerId, boolean behindFirewall) throws IOException {
 		this.ip = ip;
-		Peer pb = new PeerBuilder(peerId).ports(Constants.CLIENT_PORT).behindFirewall(true)
+		Peer pb = new PeerBuilder(peerId).ports(Constants.CLIENT_PORT).behindFirewall(behindFirewall)
 				.broadcastHandler(new ClientBroadcastHandler(this)).start();
 		this.peer = new PeerBuilderDHT(pb).start();
 		listeners = new ArrayList<ClientBroadcastListener>();

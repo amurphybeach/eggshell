@@ -26,7 +26,7 @@ public class MasterNode {
 	}
 
 	public MasterNode(String ip) throws IOException {
-		this(ip, false);
+		this(ip, true);
 	}
 
 	public void halt() {
