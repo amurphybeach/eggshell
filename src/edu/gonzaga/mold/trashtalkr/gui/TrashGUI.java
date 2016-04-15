@@ -7,6 +7,8 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.List;
 
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -29,9 +31,7 @@ public class TrashGUI extends JFrame {
 	private JTextArea chatBox;
 	private JTextField inputBox;
 	private JButton postButton;
-
 	private MasterNode masterNode;
-
 	private String ipMaster;
 	private User you;
 
@@ -139,6 +139,27 @@ public class TrashGUI extends JFrame {
 				updateChatBox(messages);
 			}
 		});
+
+		// Should work
+		Action keyEnter = new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (you.connect()) {
+					String inLine = inputBox.getText();
+					if (inLine != "") {
+						try {
+							you.postMessage(inLine);
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}
+				}
+				inputBox.setText("");
+			}
+		};
+		inputBox.addActionListener(keyEnter);
+
 	}
 
 	private void updateChatBox(List<ChatMessage> messages) {
