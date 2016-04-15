@@ -26,7 +26,7 @@ public class TrashGUI extends JFrame {
 	private JTextArea chatBox;
 	private JTextField inputBox;
 	private JButton postButton;
-	
+
 	private MasterNode masterNode;
 
 	private String ipMaster;
@@ -39,7 +39,7 @@ public class TrashGUI extends JFrame {
 		buildUI();
 		addListeners();
 	}
-	
+
 	public TrashGUI(String ip) throws ClassNotFoundException, IOException {
 		this(ip, null);
 	}

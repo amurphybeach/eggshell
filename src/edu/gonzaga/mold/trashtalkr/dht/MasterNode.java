@@ -5,7 +5,6 @@ import java.net.InetAddress;
 
 import edu.gonzaga.mold.trashtalkr.util.Constants;
 import net.tomp2p.connection.Bindings;
-import net.tomp2p.dht.FutureGet;
 import net.tomp2p.dht.PeerBuilderDHT;
 import net.tomp2p.dht.PeerDHT;
 import net.tomp2p.p2p.Peer;
@@ -29,7 +28,7 @@ public class MasterNode {
 	public MasterNode(String ip) throws IOException {
 		this(ip, false);
 	}
-	
+
 	public void halt() {
 		peer.shutdown();
 	}

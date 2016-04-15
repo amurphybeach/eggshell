@@ -9,13 +9,13 @@ public class ChatMessage implements Comparable<ChatMessage>, Serializable {
 	private long msPostedAt;
 	private String message;
 	private Number160 userId;
-	
+
 	protected ChatMessage(String message, Number160 userId) {
 		this.message = message;
 		this.userId = userId;
 		this.msPostedAt = System.currentTimeMillis();
 	}
-	
+
 	public String getMessage() {
 		return message;
 	}
@@ -23,10 +23,10 @@ public class ChatMessage implements Comparable<ChatMessage>, Serializable {
 	public Number160 getUserId() {
 		return userId;
 	}
-	
+
 	@Override
 	public String toString() {
-		return getMessage();	
+		return getMessage();
 	}
 
 	@Override
