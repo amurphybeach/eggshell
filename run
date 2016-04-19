@@ -1,3 +1,0 @@
-#!/usr/bin/env zsh
-ARGS="$@"
-mvn exec:java -Dexec.mainClass="edu.gonzaga.mold.trashtalkr.EntryPoint" -Dexec.args="$ARGS"
