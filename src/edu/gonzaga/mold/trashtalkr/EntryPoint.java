@@ -31,7 +31,7 @@ public class EntryPoint {
 			master = new MasterNode(args[1]);
 			gui = new TrashGUI(args[1], "Peer_Leader", master);
 		} else if (args.length == 1) {
-			gui = new TrashGUI(args[0], "Unamed_warrior");
+			gui = new TrashGUI(args[0], "Unnamed_Warrior");
 		} else {
 			gui = new TrashGUI(getWantedAddress(), getWantedName());
 		}
@@ -56,7 +56,7 @@ public class EntryPoint {
 	 */
 	private static String getWantedAddress() {
 		String ipToConnect = "";
-		JFrame frame = new JFrame("InputDialog Example #1");
+		JFrame frame = new JFrame("IP Address");
 		ipToConnect = JOptionPane.showInputDialog(frame, "Please enter IP address:");
 		return ipToConnect;
 	}
@@ -68,7 +68,7 @@ public class EntryPoint {
 	 */
 	private static String getWantedName() {
 		String name = "";
-		JFrame frame = new JFrame("InputDialog Example #1");
+		JFrame frame = new JFrame("Display Name");
 		name = JOptionPane.showInputDialog(frame, "Please enter your desired name:");
 		return name;
 	}
