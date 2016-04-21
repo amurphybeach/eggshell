@@ -1,6 +1,10 @@
 package edu.gonzaga.mold.trashtalkr.chat;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import net.tomp2p.peers.Number160;
 
 /**
@@ -15,7 +19,7 @@ public class ChatMessage implements Comparable<ChatMessage>, Serializable {
 
 	/**
 	 * Protected constructor, only called by User class
-	 * 
+	 *
 	 * @param message
 	 *            text of the message
 	 * @param userId
@@ -29,29 +33,8 @@ public class ChatMessage implements Comparable<ChatMessage>, Serializable {
 	}
 
 	/**
-	 * Get message
-	 * 
-	 * @return message
-	 */
-	public String getMessage() {
-		return "[" + convertSecondsToHMmSs(msPostedAt) + "]" + " " + displayName + ": " + message;
-	}
-
-	/**
-	 * Convert to HH:MM:SS
-	 * 
-	 * @return message
-	 */
-	public static String convertSecondsToHMmSs(long seconds) {
-		long s = seconds % 60;
-		long m = (seconds / 60) % 60;
-		long h = (seconds / (60 * 60)) % 24;
-		return String.format("%d:%02d:%02d", h, m, s);
-	}
-
-	/**
 	 * Get userId
-	 * 
+	 *
 	 * @return user id
 	 */
 	public Number160 getUserId() {
@@ -59,18 +42,29 @@ public class ChatMessage implements Comparable<ChatMessage>, Serializable {
 	}
 
 	/**
+	 * Gets the time the message was posted in string format
+	 *
+	 * @return textual representation
+	 */
+	public String getTime() {
+		Date date = new Date(msPostedAt);
+		DateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+		return formatter.format(date);
+	}
+
+	/**
 	 * Converts a ChatMessage object to a textual representation
-	 * 
+	 *
 	 * @return textual representation
 	 */
 	@Override
 	public String toString() {
-		return getMessage();
+		return "[" + getTime() + "]" + " " + displayName + ": " + message;
 	}
 
 	/**
 	 * Compares one ChatMessage object with another
-	 * 
+	 *
 	 * @param other
 	 *            the other ChatMessage object
 	 * @return comparison result
