@@ -30,6 +30,12 @@ public class Util {
 		return InetAddress.getLocalHost().getHostAddress();
 	}
 
+	/**
+	 * Gets the port a client should listen on, based on IP address
+	 * 
+	 * @return the port to listen on
+	 * @throws UnknownHostException
+	 */
 	public static int generatePort() throws UnknownHostException {
 		String addr = getLocalAddress();
 		String[] parts = addr.split("\\.");
