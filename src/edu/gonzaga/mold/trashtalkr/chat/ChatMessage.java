@@ -1,8 +1,6 @@
 package edu.gonzaga.mold.trashtalkr.chat;
 
 import java.io.Serializable;
-import java.util.Date;
-
 import net.tomp2p.peers.Number160;
 
 /**
@@ -34,9 +32,14 @@ public class ChatMessage implements Comparable<ChatMessage>, Serializable {
 	 * @return message
 	 */
 	public String getMessage() {
-		Date dt = new Date(msPostedAt);
-		final String timeString2 = dt.toString();
-		return "[ " + timeString2 + " ]" + " " + message;
+		return "[" + convertSecondsToHMmSs(msPostedAt) + "]" + ": " + message;
+	}
+
+	public static String convertSecondsToHMmSs(long seconds) {
+		long s = seconds % 60;
+		long m = (seconds / 60) % 60;
+		long h = (seconds / (60 * 60)) % 24;
+		return String.format("%d:%02d:%02d", h, m, s);
 	}
 
 	/**
