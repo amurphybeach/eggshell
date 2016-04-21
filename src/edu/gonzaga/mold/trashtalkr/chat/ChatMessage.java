@@ -11,6 +11,7 @@ public class ChatMessage implements Comparable<ChatMessage>, Serializable {
 	private long msPostedAt;
 	private String message;
 	private Number160 userId;
+	private String displayName;
 
 	/**
 	 * Protected constructor, only called by User class
@@ -20,7 +21,8 @@ public class ChatMessage implements Comparable<ChatMessage>, Serializable {
 	 * @param userId
 	 *            the ID of the posting user
 	 */
-	protected ChatMessage(String message, Number160 userId) {
+	protected ChatMessage(String message, Number160 userId, String display) {
+		this.displayName = display;
 		this.message = message;
 		this.userId = userId;
 		this.msPostedAt = System.currentTimeMillis();
@@ -32,9 +34,14 @@ public class ChatMessage implements Comparable<ChatMessage>, Serializable {
 	 * @return message
 	 */
 	public String getMessage() {
-		return "[" + convertSecondsToHMmSs(msPostedAt) + "]" + ": " + message;
+		return "[" + convertSecondsToHMmSs(msPostedAt) + "]" + " " + displayName + ": " + message;
 	}
 
+	/**
+	 * Convert to HH:MM:SS
+	 * 
+	 * @return message
+	 */
 	public static String convertSecondsToHMmSs(long seconds) {
 		long s = seconds % 60;
 		long m = (seconds / 60) % 60;

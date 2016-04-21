@@ -15,7 +15,6 @@ public class EntryPoint {
 	private static TrashGUI gui = null;
 	private static MasterNode master;
 	private static Logger logger = LoggerFactory.getLogger(EntryPoint.class);
-	private static String ip_address = "";
 
 	/**
 	 * Main entry point of program
@@ -30,11 +29,11 @@ public class EntryPoint {
 			logger.info("Listening on address " + Util.getLocalAddress());
 		} else if (args.length == 2 && args[0].equals("bootstrap")) {
 			master = new MasterNode(args[1]);
-			gui = new TrashGUI(args[1], master);
+			gui = new TrashGUI(args[1], "Peer_Leader", master);
 		} else if (args.length == 1) {
-			gui = new TrashGUI(args[0]);
+			gui = new TrashGUI(args[0], "Unamed_warrior");
 		} else {
-			gui = new TrashGUI(getWantedAddress());
+			gui = new TrashGUI(getWantedAddress(), getWantedName());
 		}
 		if (gui != null) {
 			SwingUtilities.invokeLater(new Runnable() {
@@ -50,11 +49,27 @@ public class EntryPoint {
 		}
 	}
 
+	/**
+	 * Gets the IP Address to connect to
+	 * 
+	 * @return ipToConnect
+	 */
 	private static String getWantedAddress() {
+		String ipToConnect = "";
+		JFrame frame = new JFrame("InputDialog Example #1");
+		ipToConnect = JOptionPane.showInputDialog(frame, "Please enter IP address:");
+		return ipToConnect;
+	}
+
+	/**
+	 * Gets the name you want to be called
+	 * 
+	 * @return name
+	 */
+	private static String getWantedName() {
 		String name = "";
 		JFrame frame = new JFrame("InputDialog Example #1");
-		name = JOptionPane.showInputDialog(frame, "Please enter IP address");
+		name = JOptionPane.showInputDialog(frame, "Please enter your desired name:");
 		return name;
-
 	}
 }

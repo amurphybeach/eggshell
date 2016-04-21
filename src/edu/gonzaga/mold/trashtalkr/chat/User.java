@@ -17,6 +17,7 @@ import net.tomp2p.peers.Number160;
  */
 public class User {
 	private Number160 userId;
+	private String displayName;
 	private ClientNode client;
 	private boolean bootstrapped = false;
 	private List<MessageListener> listeners;
@@ -28,7 +29,8 @@ public class User {
 	 *            the IP of the master node
 	 * @throws IOException
 	 */
-	public User(String ip) throws IOException {
+	public User(String ip, String display) throws IOException {
+		displayName = display;
 		userId = Util.generatePeerId();
 		client = new ClientNode(ip, userId);
 		listeners = new ArrayList<MessageListener>();
@@ -109,7 +111,7 @@ public class User {
 	 * @throws IOException
 	 */
 	public void postMessage(String message) throws IOException {
-		ChatMessage m = new ChatMessage(message, this.userId);
+		ChatMessage m = new ChatMessage(message, this.userId, this.displayName);
 		client.postMessage(m);
 	}
 

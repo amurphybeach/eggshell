@@ -45,10 +45,10 @@ public class TrashGUI extends JFrame {
 	 * @throws IOException
 	 * @throws ClassNotFoundException
 	 */
-	public TrashGUI(String ip, MasterNode masterNode) throws IOException, ClassNotFoundException {
+	public TrashGUI(String ip, String display, MasterNode masterNode) throws IOException, ClassNotFoundException {
 		this.ipMaster = ip;
 		this.masterNode = masterNode;
-		you = new User(ipMaster);
+		you = new User(ipMaster, display);
 		buildUI();
 		addListeners();
 	}
@@ -61,8 +61,8 @@ public class TrashGUI extends JFrame {
 	 * @throws ClassNotFoundException
 	 * @throws IOException
 	 */
-	public TrashGUI(String ip) throws ClassNotFoundException, IOException {
-		this(ip, null);
+	public TrashGUI(String ip, String display) throws ClassNotFoundException, IOException {
+		this(ip, display, null);
 	}
 
 	/**
