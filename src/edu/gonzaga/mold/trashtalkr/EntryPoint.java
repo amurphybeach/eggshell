@@ -1,5 +1,7 @@
 package edu.gonzaga.mold.trashtalkr;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 import org.slf4j.Logger;
@@ -13,6 +15,7 @@ public class EntryPoint {
 	private static TrashGUI gui = null;
 	private static MasterNode master;
 	private static Logger logger = LoggerFactory.getLogger(EntryPoint.class);
+	private static String ip_address = "";
 
 	/**
 	 * Main entry point of program
@@ -30,6 +33,8 @@ public class EntryPoint {
 			gui = new TrashGUI(args[1], master);
 		} else if (args.length == 1) {
 			gui = new TrashGUI(args[0]);
+		} else {
+			gui = new TrashGUI(getWantedAddress());
 		}
 		if (gui != null) {
 			SwingUtilities.invokeLater(new Runnable() {
@@ -43,5 +48,13 @@ public class EntryPoint {
 				}
 			});
 		}
+	}
+
+	private static String getWantedAddress() {
+		String name = "";
+		JFrame frame = new JFrame("InputDialog Example #1");
+		name = JOptionPane.showInputDialog(frame, "Please enter IP address");
+		return name;
+
 	}
 }

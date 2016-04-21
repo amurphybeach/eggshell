@@ -1,6 +1,7 @@
 package edu.gonzaga.mold.trashtalkr.chat;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import net.tomp2p.peers.Number160;
 
@@ -33,7 +34,9 @@ public class ChatMessage implements Comparable<ChatMessage>, Serializable {
 	 * @return message
 	 */
 	public String getMessage() {
-		return message;
+		Date dt = new Date(msPostedAt);
+		final String timeString2 = dt.toString();
+		return "[ " + timeString2 + " ]" + " " + message;
 	}
 
 	/**
