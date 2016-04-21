@@ -29,4 +29,10 @@ public class Util {
 	public static String getLocalAddress() throws UnknownHostException {
 		return InetAddress.getLocalHost().getHostAddress();
 	}
+
+	public static int generatePort() throws UnknownHostException {
+		String addr = getLocalAddress();
+		String[] parts = addr.split("\\.");
+		return Integer.parseInt(parts[parts.length - 1], 10) + Constants.CLIENT_PORT;
+	}
 }

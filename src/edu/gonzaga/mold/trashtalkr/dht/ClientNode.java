@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 
 import edu.gonzaga.mold.trashtalkr.chat.ChatMessage;
 import edu.gonzaga.mold.trashtalkr.util.Constants;
+import edu.gonzaga.mold.trashtalkr.util.Util;
 import net.tomp2p.dht.FutureGet;
 import net.tomp2p.dht.PeerBuilderDHT;
 import net.tomp2p.dht.PeerDHT;
@@ -50,7 +51,7 @@ public class ClientNode {
 	 */
 	public ClientNode(String ip, Number160 peerId, boolean behindFirewall, String display) throws IOException {
 		this.ip = ip;
-		Peer pb = new PeerBuilder(peerId).ports(Constants.CLIENT_PORT).behindFirewall(behindFirewall)
+		Peer pb = new PeerBuilder(peerId).ports(Util.generatePort()).behindFirewall(behindFirewall)
 				.broadcastHandler(new ClientBroadcastHandler(this)).start();
 		this.peer = new PeerBuilderDHT(pb).start();
 		listeners = new ArrayList<ClientBroadcastListener>();
