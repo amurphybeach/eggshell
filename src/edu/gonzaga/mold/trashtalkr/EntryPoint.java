@@ -27,11 +27,9 @@ public class EntryPoint {
 		if (args.length == 1 && args[0].equals("headless")) {
 			master = new MasterNode(Util.getLocalAddress());
 			logger.info("Listening on address " + Util.getLocalAddress());
-		} else if (args.length == 2 && args[0].equals("bootstrap")) {
-			master = new MasterNode(args[1]);
-			gui = new TrashGUI(args[1], "Peer_Leader", master);
-		} else if (args.length == 1) {
-			gui = new TrashGUI(args[0], "Unnamed_Warrior");
+		} else if (args.length == 1 && args[0].equals("bootstrap")) {
+			master = new MasterNode(Util.getLocalAddress());
+			gui = new TrashGUI(Util.getLocalAddress(), getWantedName(), master);
 		} else {
 			gui = new TrashGUI(getWantedAddress(), getWantedName());
 		}
