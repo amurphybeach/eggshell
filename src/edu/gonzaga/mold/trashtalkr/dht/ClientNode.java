@@ -48,7 +48,7 @@ public class ClientNode {
 	 *            whether the node is behind a firewall
 	 * @throws IOException
 	 */
-	public ClientNode(String ip, Number160 peerId, boolean behindFirewall) throws IOException {
+	public ClientNode(String ip, Number160 peerId, boolean behindFirewall, String display) throws IOException {
 		this.ip = ip;
 		Peer pb = new PeerBuilder(peerId).ports(Constants.CLIENT_PORT).behindFirewall(behindFirewall)
 				.broadcastHandler(new ClientBroadcastHandler(this)).start();
@@ -65,8 +65,8 @@ public class ClientNode {
 	 *            unique peer id for this user
 	 * @throws IOException
 	 */
-	public ClientNode(String ip, Number160 peerId) throws IOException {
-		this(ip, peerId, true);
+	public ClientNode(String ip, Number160 peerId, String display) throws IOException {
+		this(ip, peerId, true, display);
 	}
 
 	/**

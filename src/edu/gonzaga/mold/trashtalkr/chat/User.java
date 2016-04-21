@@ -32,7 +32,7 @@ public class User {
 	public User(String ip, String display) throws IOException {
 		displayName = display;
 		userId = Util.generatePeerId();
-		client = new ClientNode(ip, userId);
+		client = new ClientNode(ip, userId, displayName);
 		listeners = new ArrayList<MessageListener>();
 		client.addBroadcastListener(new ClientBroadcastListener() {
 			@Override
