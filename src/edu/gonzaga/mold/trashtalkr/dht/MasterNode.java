@@ -12,8 +12,7 @@ import net.tomp2p.p2p.PeerBuilder;
 import net.tomp2p.peers.Number160;
 
 public class MasterNode {
-	public static int id = 1;
-	public static String eventName = "global";
+	private static Number160 id = Number160.createHash(1);
 
 	private PeerDHT peer;
 
@@ -29,7 +28,7 @@ public class MasterNode {
 	public MasterNode(String ip, boolean behindFirewall) throws IOException {
 		Bindings b = new Bindings();
 		b.addAddress(InetAddress.getByName(ip));
-		Peer pb = new PeerBuilder(Number160.createHash(id)).bindings(b).ports(Constants.BOOTSTRAPPER_PORT)
+		Peer pb = new PeerBuilder(id).bindings(b).ports(Constants.BOOTSTRAPPER_PORT)
 				.behindFirewall(behindFirewall).start();
 		this.peer = new PeerBuilderDHT(pb).start();
 	}

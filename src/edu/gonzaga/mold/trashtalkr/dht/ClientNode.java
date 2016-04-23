@@ -110,8 +110,8 @@ public class ClientNode {
 	 * @throws ClassNotFoundException
 	 * @throws IOException
 	 */
-	public List<ChatMessage> getMessages() throws ClassNotFoundException, IOException {
-		FutureGet eventFutureGet = peer.get(Number160.createHash(MasterNode.eventName)).all().start();
+	public List<ChatMessage> getMessages(String eventName) throws ClassNotFoundException, IOException {
+		FutureGet eventFutureGet = peer.get(Number160.createHash(eventName)).all().start();
 		eventFutureGet.awaitUninterruptibly();
 		Iterator<Data> iterator = eventFutureGet.dataMap().values().iterator();
 		FutureGet messageFutureGet;
@@ -135,8 +135,8 @@ public class ClientNode {
 	 * @param callback
 	 *            the callback object
 	 */
-	public void getMessagesAsync(GetMessagesCallback callback) {
-		FutureGet eventFutureGet = peer.get(Number160.createHash(MasterNode.eventName)).all().start();
+	public void getMessagesAsync(String eventName, GetMessagesCallback callback) {
+		FutureGet eventFutureGet = peer.get(Number160.createHash(eventName)).all().start();
 		eventFutureGet.addListener(new BaseFutureListener<FutureGet>() {
 			@Override
 			public void operationComplete(FutureGet eventFutureGet) throws Exception {
@@ -182,11 +182,11 @@ public class ClientNode {
 	 *            the message
 	 * @throws IOException
 	 */
-	public void postMessage(ChatMessage message) throws IOException {
+	public void postMessage(String eventName, ChatMessage message) throws IOException {
 		int r = new Random().nextInt();
-		peer.add(Number160.createHash(MasterNode.eventName)).data(new Data(r)).start().awaitUninterruptibly();
+		peer.add(Number160.createHash(eventName)).data(new Data(r)).start().awaitUninterruptibly();
 		peer.put(new Number160(r)).data(new Data(message)).start().awaitUninterruptibly();
-		peer.peer().broadcast(new Number160(r)).start();
+		peer.peer().broadcast(Number160.createHash(eventName)).start();
 	}
 
 	/**
@@ -202,9 +202,9 @@ public class ClientNode {
 	/**
 	 * Trigger all the listeners for incoming broadcasts
 	 */
-	protected void triggerListeners() {
+	protected void triggerListeners(Number160 key) {
 		for (ClientBroadcastListener listener : listeners) {
-			listener.onBroadcast();
+			listener.onBroadcast(key);
 		}
 	}
 }
