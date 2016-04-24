@@ -3,6 +3,7 @@ package edu.gonzaga.mold.trashtalkr.gui;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.List;
 
@@ -15,14 +16,17 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.DefaultCaret;
 
+import edu.gonzaga.mold.trashtalkr.EntryPoint;
 import edu.gonzaga.mold.trashtalkr.chat.ChatMessage;
 import edu.gonzaga.mold.trashtalkr.chat.MessageListener;
 import edu.gonzaga.mold.trashtalkr.chat.User;
 import edu.gonzaga.mold.trashtalkr.dht.MasterNode;
+import edu.gonzaga.mold.trashtalkr.util.Util;
 
 public class TrashGUI extends JFrame {
 	private static final long serialVersionUID = -2719771220017509611L;
@@ -34,6 +38,7 @@ public class TrashGUI extends JFrame {
 	private MasterNode masterNode;
 	private String ipMaster;
 	private User you;
+	private JButton backBtn;
 
 	/**
 	 * Creates a new GUI
@@ -92,8 +97,9 @@ public class TrashGUI extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setBackground(new Color(139, 0, 0));
+		contentPane.setBackground(UIManager.getColor("Desktop.background"));
 		contentPane.setLayout(null);
+		setLocationRelativeTo(null);
 
 		JLabel welcomeLbl = new JLabel("Welcome to TrashTalkr - It's TRASH");
 		welcomeLbl.setForeground(Color.WHITE);
@@ -105,8 +111,6 @@ public class TrashGUI extends JFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(6, 22, 438, 207);
 		contentPane.add(scrollPane);
-		// scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		// contentPane.add(scrollPane);
 
 		chatBox = new JTextArea();
 		DefaultCaret caret = (DefaultCaret) chatBox.getCaret();
@@ -114,10 +118,6 @@ public class TrashGUI extends JFrame {
 		scrollPane.setViewportView(chatBox);
 		chatBox.setEditable(false);
 		chatBox.setLineWrap(true);
-
-		// inputBox = new JTextField();
-		// inputBox.setBounds(20, 204, 193, 31);
-		// contentPane.add(inputBox);
 
 		inputBox = new JTextField();
 		inputBox.setBounds(6, 233, 247, 26);
@@ -129,6 +129,26 @@ public class TrashGUI extends JFrame {
 		postButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 13));
 		postButton.setBounds(265, 233, 117, 29);
 		contentPane.add(postButton);
+
+		// Fucking shit doesn't work LMAO LMAO LMAO
+		backBtn = new JButton("X");
+		backBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				you.disconnect();
+				if (masterNode != null) {
+					masterNode.halt();
+				}
+				dispose();
+				try {
+					EntryPoint.run();
+				} catch (ClassNotFoundException | InterruptedException | IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		backBtn.setBounds(387, 234, 57, 29);
+		contentPane.add(backBtn);
 	}
 
 	/**
