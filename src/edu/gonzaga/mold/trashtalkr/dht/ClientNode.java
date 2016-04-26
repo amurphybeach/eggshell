@@ -49,7 +49,7 @@ public class ClientNode {
 	 *            whether the node is behind a firewall
 	 * @throws IOException
 	 */
-	public ClientNode(String ip, Number160 peerId, boolean behindFirewall, String display) throws IOException {
+	public ClientNode(String ip, Number160 peerId, boolean behindFirewall) throws IOException {
 		this.ip = ip;
 		Peer pb = new PeerBuilder(peerId).ports(Util.generatePort()).behindFirewall(behindFirewall)
 				.broadcastHandler(new ClientBroadcastHandler(this)).start();
@@ -66,8 +66,8 @@ public class ClientNode {
 	 *            unique peer id for this user
 	 * @throws IOException
 	 */
-	public ClientNode(String ip, Number160 peerId, String display) throws IOException {
-		this(ip, peerId, true, display);
+	public ClientNode(String ip, Number160 peerId) throws IOException {
+		this(ip, peerId, true);
 	}
 
 	/**
@@ -104,8 +104,10 @@ public class ClientNode {
 	}
 
 	/**
-	 * Gets all the ChatMessage objects for the current event
+	 * Gets all the ChatMessage objects for an event
 	 * 
+	 * @param eventName
+	 *            event to get messages for
 	 * @return the messages
 	 * @throws ClassNotFoundException
 	 * @throws IOException
@@ -130,8 +132,10 @@ public class ClientNode {
 	}
 
 	/**
-	 * Gets all the ChatMessage objects for the current event asynchronously
+	 * Gets all the ChatMessage objects for an event asynchronously
 	 * 
+	 * @param eventName
+	 *            event to get messages for
 	 * @param callback
 	 *            the callback object
 	 */
@@ -178,6 +182,8 @@ public class ClientNode {
 	/**
 	 * Post a message to the DHT
 	 * 
+	 * @param eventName
+	 *            the event to post the message to
 	 * @param message
 	 *            the message
 	 * @throws IOException
@@ -201,6 +207,9 @@ public class ClientNode {
 
 	/**
 	 * Trigger all the listeners for incoming broadcasts
+	 * 
+	 * @param key
+	 *            the key of the incoming messages
 	 */
 	protected void triggerListeners(Number160 key) {
 		for (ClientBroadcastListener listener : listeners) {

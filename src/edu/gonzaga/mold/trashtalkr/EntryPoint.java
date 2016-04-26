@@ -63,8 +63,6 @@ public class EntryPoint {
 
 	/**
 	 * Builds menu and then waits for user to get their shit together
-	 * 
-	 * @return
 	 */
 	public static void run() throws InterruptedException, UnknownHostException, IOException, ClassNotFoundException {
 		tmg = new TrashMenuGui();

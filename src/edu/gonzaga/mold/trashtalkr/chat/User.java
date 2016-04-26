@@ -29,13 +29,15 @@ public class User {
 	 * 
 	 * @param ip
 	 *            the IP of the master node
+	 * @param display
+	 *            the display name of the user
 	 * @throws IOException
 	 */
 	public User(String ip, String display) throws IOException {
 		displayName = display;
 		currentEvent = "global";
 		userId = Util.generatePeerId();
-		client = new ClientNode(ip, userId, displayName);
+		client = new ClientNode(ip, userId);
 		listeners = new ArrayList<MessageListener>();
 		client.addBroadcastListener(new ClientBroadcastListener() {
 			@Override

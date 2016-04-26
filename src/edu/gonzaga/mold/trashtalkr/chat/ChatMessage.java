@@ -14,7 +14,6 @@ public class ChatMessage implements Comparable<ChatMessage>, Serializable {
 	private static final long serialVersionUID = 5448162664352364561L;
 	private long msPostedAt;
 	private String message;
-	private Number160 userId;
 	private String displayName;
 
 	/**
@@ -24,21 +23,13 @@ public class ChatMessage implements Comparable<ChatMessage>, Serializable {
 	 *            text of the message
 	 * @param userId
 	 *            the ID of the posting user
+	 * @param display
+	 *            the display name of the user
 	 */
 	protected ChatMessage(String message, Number160 userId, String display) {
 		this.displayName = display;
 		this.message = message;
-		this.userId = userId;
 		this.msPostedAt = System.currentTimeMillis();
-	}
-
-	/**
-	 * Get userId
-	 *
-	 * @return user id
-	 */
-	public Number160 getUserId() {
-		return userId;
 	}
 
 	/**

@@ -8,6 +8,9 @@ import net.tomp2p.peers.Number160;
 public interface ClientBroadcastListener {
 	/**
 	 * Called when broadcasts are received
+	 * 
+	 * @param key
+	 *            the key of the message received
 	 */
 	void onBroadcast(Number160 key);
 }

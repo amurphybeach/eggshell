@@ -7,6 +7,19 @@
     <sourceDirectory>src</sourceDirectory>
     <plugins>
       <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-scm-publish-plugin</artifactId>
+    <version>1.0-beta-2</version>
+    <configuration>
+        <checkoutDirectory>${project.build.directory}/scmpublish</checkoutDirectory>
+        <checkinComment>Publishing javadoc</checkinComment>
+        <content>${project.reporting.outputDirectory}/apidocs</content>
+        <skipDeletedFiles>true</skipDeletedFiles>
+        <pubScmUrl>scm:git:git@github.com:amurphybeach/eggshell.git</pubScmUrl>
+        <scmBranch>gh-pages</scmBranch> <!-- branch with static site -->
+    </configuration>
+</plugin>
+      <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.3</version>
         <configuration>
@@ -78,4 +91,15 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+  <profiles>
+    <profile>
+        <id>disable-java8-doclint</id>
+        <activation>
+            <jdk>[1.8,)</jdk>
+        </activation>
+        <properties>
+            <additionalparam>-Xdoclint:none</additionalparam>
+        </properties>
+    </profile>
+</profiles>
 </project>

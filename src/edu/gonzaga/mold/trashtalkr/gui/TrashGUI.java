@@ -26,7 +26,6 @@ import edu.gonzaga.mold.trashtalkr.chat.ChatMessage;
 import edu.gonzaga.mold.trashtalkr.chat.MessageListener;
 import edu.gonzaga.mold.trashtalkr.chat.User;
 import edu.gonzaga.mold.trashtalkr.dht.MasterNode;
-import edu.gonzaga.mold.trashtalkr.util.Util;
 
 public class TrashGUI extends JFrame {
 	private static final long serialVersionUID = -2719771220017509611L;
@@ -45,6 +44,8 @@ public class TrashGUI extends JFrame {
 	 * 
 	 * @param ip
 	 *            the IP of the master node
+	 * @param display
+	 *            the display name of the user
 	 * @param masterNode
 	 *            the master node, if bootstrapping the network
 	 * @throws IOException
@@ -63,6 +64,8 @@ public class TrashGUI extends JFrame {
 	 * 
 	 * @param ip
 	 *            the IP of the master node
+	 * @param display
+	 *            the display name of the user
 	 * @throws ClassNotFoundException
 	 * @throws IOException
 	 */
