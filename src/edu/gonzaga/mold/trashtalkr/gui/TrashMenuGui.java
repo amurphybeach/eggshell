@@ -72,7 +72,7 @@ public class TrashMenuGui {
 				frame.setVisible(false);
 			}
 		});
-		btnJoinLobby.setBounds(170, 160, 124, 29);
+		btnJoinLobby.setBounds(170, 165, 124, 29);
 		contentPane.add(btnJoinLobby);
 
 		// Textfield to enter a name Change
@@ -89,7 +89,7 @@ public class TrashMenuGui {
 				nameTextField.setText(name);
 			}
 		});
-		btnChangeName.setBounds(168, 220, 124, 29);
+		btnChangeName.setBounds(168, 225, 124, 29);
 		contentPane.add(btnChangeName);
 
 	}
