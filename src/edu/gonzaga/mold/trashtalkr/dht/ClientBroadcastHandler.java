@@ -36,7 +36,7 @@ public class ClientBroadcastHandler extends StructuredBroadcastHandler {
 	public StructuredBroadcastHandler receive(Message message) {
 		logger.info("Got a broadcast message");
 		StructuredBroadcastHandler sbh = super.receive(message);
-		client.triggerListeners(message.key(0));
+		client.triggerListeners();
 		return sbh;
 	}
 

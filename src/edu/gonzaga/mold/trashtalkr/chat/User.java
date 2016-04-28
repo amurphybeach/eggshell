@@ -22,8 +22,6 @@ public class User {
 	private boolean bootstrapped = false;
 	private List<MessageListener> listeners;
 
-	private String currentEvent;
-
 	/**
 	 * Creates a new User
 	 * 
@@ -35,16 +33,13 @@ public class User {
 	 */
 	public User(String ip, String display) throws IOException {
 		displayName = display;
-		currentEvent = "global";
 		userId = Util.generatePeerId();
 		client = new ClientNode(ip, userId);
 		listeners = new ArrayList<MessageListener>();
 		client.addBroadcastListener(new ClientBroadcastListener() {
 			@Override
-			public void onBroadcast(Number160 key) {
-				if (key.equals(Number160.createHash(currentEvent))) {
-					triggerMessageListeners();
-				}
+			public void onBroadcast() {
+				triggerMessageListeners();
 			}
 		});
 	}
@@ -63,7 +58,7 @@ public class User {
 	 * Trigger all the listeners for incoming messages
 	 */
 	private void triggerMessageListeners() {
-		client.getMessagesAsync(currentEvent, new GetMessagesCallback() {
+		client.getMessagesAsync(new GetMessagesCallback() {
 			@Override
 			public void call(List<ChatMessage> messages) {
 				Collections.sort(messages);
@@ -119,7 +114,7 @@ public class User {
 	 */
 	public void postMessage(String message) throws IOException {
 		ChatMessage m = new ChatMessage(message, this.userId, this.displayName);
-		client.postMessage(currentEvent, m);
+		client.postMessage(m);
 	}
 
 	/**
@@ -130,7 +125,7 @@ public class User {
 	 * @throws IOException
 	 */
 	public List<ChatMessage> checkMessages() throws ClassNotFoundException, IOException {
-		List<ChatMessage> messages = client.getMessages(currentEvent);
+		List<ChatMessage> messages = client.getMessages();
 		Collections.sort(messages);
 		return messages;
 	}
