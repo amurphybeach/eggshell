@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -30,7 +31,7 @@ public class TrashMenuGui {
 		frame.setBounds(100, 100, 450, 300);
 		frame.setLocationRelativeTo(null);
 		contentPane = new JPanel();
-		contentPane.setBackground(UIManager.getColor("Desktop.background"));
+		contentPane.setBackground(new Color(0, 51, 153));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		frame.setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -39,7 +40,7 @@ public class TrashMenuGui {
 		lblNewLabel.setForeground(Color.WHITE);
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 13));
 		lblNewLabel.setBounds(174, 6, 104, 16);
-		contentPane.add(lblNewLabel);
+		// contentPane.add(lblNewLabel);
 
 		// Button to create a new lobby with you as host
 		JButton btnCreateRoom = new JButton("Create Room");
@@ -49,12 +50,17 @@ public class TrashMenuGui {
 				frame.setVisible(false);
 			}
 		});
-		btnCreateRoom.setBounds(166, 37, 124, 29);
+		btnCreateRoom.setBounds(166, 90, 124, 29);
 		contentPane.add(btnCreateRoom);
+
+		JButton btnNewButton = new JButton();
+		btnNewButton.setIcon(new ImageIcon(getClass().getResource("TrashTalkrLogo.png")));
+		btnNewButton.setBounds(170, 6, 123, 54);
+		contentPane.add(btnNewButton);
 
 		// Text field for IP address of join room
 		ipTextField = new JTextField();
-		ipTextField.setBounds(166, 78, 130, 26);
+		ipTextField.setBounds(166, 137, 130, 26);
 		contentPane.add(ipTextField);
 		ipTextField.setColumns(10);
 
@@ -66,12 +72,12 @@ public class TrashMenuGui {
 				frame.setVisible(false);
 			}
 		});
-		btnJoinLobby.setBounds(166, 116, 124, 29);
+		btnJoinLobby.setBounds(170, 160, 124, 29);
 		contentPane.add(btnJoinLobby);
 
 		// Textfield to enter a name Change
 		nameTextField = new JTextField();
-		nameTextField.setBounds(166, 157, 130, 26);
+		nameTextField.setBounds(166, 197, 130, 26);
 		contentPane.add(nameTextField);
 		nameTextField.setColumns(10);
 		nameTextField.setText(name);
@@ -83,7 +89,7 @@ public class TrashMenuGui {
 				nameTextField.setText(name);
 			}
 		});
-		btnChangeName.setBounds(166, 195, 124, 29);
+		btnChangeName.setBounds(168, 220, 124, 29);
 		contentPane.add(btnChangeName);
 
 	}

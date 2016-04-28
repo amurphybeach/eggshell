@@ -37,7 +37,6 @@ public class TrashGUI extends JFrame {
 	private MasterNode masterNode;
 	private String ipMaster;
 	private User you;
-	private JButton backBtn;
 
 	/**
 	 * Creates a new GUI
@@ -100,7 +99,7 @@ public class TrashGUI extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setBackground(UIManager.getColor("Desktop.background"));
+		contentPane.setBackground(new Color(0, 51, 153));
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
 
@@ -132,26 +131,6 @@ public class TrashGUI extends JFrame {
 		postButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 13));
 		postButton.setBounds(265, 233, 117, 29);
 		contentPane.add(postButton);
-
-		// Fucking shit doesn't work LMAO LMAO LMAO
-		backBtn = new JButton("X");
-		backBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				you.disconnect();
-				if (masterNode != null) {
-					masterNode.halt();
-				}
-				dispose();
-				try {
-					EntryPoint.run();
-				} catch (ClassNotFoundException | InterruptedException | IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-		});
-		backBtn.setBounds(387, 234, 57, 29);
-		contentPane.add(backBtn);
 	}
 
 	/**
